@@ -12,7 +12,7 @@ API_KEY = os.getenv("WEYSENTINEL_API_KEY")
 # GitHub Credentials
 GITHUB_TOKEN = os.getenv("WEYSENTINEL_GITHUB_PAT")
 REPO_OWNER = "debaedoma"
-REPO_NAME = "wey-sentinel"
+REPO_NAME = "weyoto-gitgpt"
 
 # Common headers for GitHub API
 HEADERS = {
