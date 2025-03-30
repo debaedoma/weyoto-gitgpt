@@ -1,0 +1,60 @@
+# ----------------------------------------------
+# WeySentinel – Frequently Used Commands
+# ----------------------------------------------
+
+# ✅ Virtual Environment Management
+python -m venv venv                  # Create a virtual environment
+venv\Scripts\Activate                 # Activate venv (PowerShell)
+venv\Scripts\activate.bat              # Activate venv (CMD)
+source venv/bin/activate               # Activate venv (Mac/Linux)
+deactivate                             # Deactivate venv
+
+# ✅ Installing Dependencies
+pip install flask flask-sqlalchemy flask-migrate psycopg2-binary python-dotenv  # Install dependencies
+pip freeze > requirements.txt         # Save dependencies
+pip install -r requirements.txt       # Install from requirements.txt
+
+# ✅ Database (PostgreSQL) Management
+psql -U postgres                      # Login to PostgreSQL
+CREATE DATABASE weyoto_assist;         # Create a database
+CREATE USER weyoto_user WITH ENCRYPTED PASSWORD 'yourpassword';  # Create user
+GRANT ALL PRIVILEGES ON DATABASE weyoto_assist TO weyoto_user;  # Grant privileges
+\c weyoto_assist                      # Connect to the database
+\l                                     # List all databases
+\q                                     # Exit PostgreSQL
+
+# ✅ Flask Application Management
+flask run                              # Run Flask app
+flask run --debug                      # Run Flask app with debug mode
+
+# Set environment variables (temporary - PowerShell)
+$env:FLASK_APP="app.py"
+$env:DATABASE_URL="postgresql://DBuser:yourpassword@localhost:5432/weyoto_assist"
+
+# ✅ Database Migrations (Flask-Migrate)
+flask db init                          # Initialize migrations
+flask db migrate -m "Initial migration"  # Generate migration files
+flask db upgrade                       # Apply migrations
+flask db downgrade                      # Rollback migration
+
+# ✅ Git & Version Control
+git init                               # Initialize a new Git repository
+git add .                              # Add all files
+git commit -m "Initial commit"         # Commit changes
+git checkout -b dev                    # Create and switch to a new branch
+git push origin main                   # Push changes to GitHub
+git pull origin main                   # Pull latest changes
+git status                             # View Git status
+git clone <repo_url>                    # Clone a repository
+
+# ✅ Other Useful Commands
+python --version                       # Check Python version
+pip --version                          # Check pip version
+pip list                               # List installed packages
+cls                                    # Clear terminal (Windows)
+clear                                  # Clear terminal (Mac/Linux)
+
+# ----------------------------------------------
+# 🚀 Now you have all your frequently used commands in one place!
+# Save this file as commands.txt or commands.md in your repo. 🔥
+# ----------------------------------------------
