@@ -1,0 +1,40 @@
+app:
+  name: "Weyoto GitGPT"
+  uses_create_app: true
+  blueprint_root: "modules"
+  extensions:
+    - Flask-SQLAlchemy
+
+deployment:
+  provider: "None (local)"
+  local_proxy: "Cloudflare Tunnel"
+  env_file: "N/A"
+  uses_system_env_vars: true
+  schema_path: "gpt/schema.yaml"
+
+auth:
+  api_key_header: "x-api-key"
+  user_identifier: "email"
+
+billing:
+  plans:
+    free: 1000
+    pro: unlimited
+
+data_sources:
+  github:
+    blueprint: "github_bp"
+    auth_type: "PAT"
+    scopes:
+      - repo
+      - read:org
+    env_keys: []
+
+schema:
+  file: "gpt/schema.yaml"
+  changelog: "gpt-schema-changelog.md"
+
+env_required:
+  - WEYOTO_GITGPT_DATABASE_URL
+  - WEYOTO_API_KEY_SECRET
+  - WEYOTO_ALLOWED_ORIGINS
