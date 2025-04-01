@@ -59,3 +59,7 @@ clear                                  # Clear terminal (Mac/Linux)
 # Save this file as commands.txt or commands.md in your repo. 🔥
 # ----------------------------------------------
 cloudflared tunnel run weysentinel-local
+
+git add .
+git commit -m "Initial commit"
+git push origin main
