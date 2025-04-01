@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="432e3930-b0cc-4951-966b-9c4aa8891c8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/.gitkeep" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,9 +46,12 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Coding files\weyoto-gitgpt" />
+      <recent name="C:\Coding files\weyoto-gitgpt\Modules\github" />
+      <recent name="C:\Coding files\weyoto-gitgpt/modules" />
       <recent name="C:\Coding files\wey-sentinel" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Coding files\weyoto-gitgpt\Modules\github" />
       <recent name="C:\Coding files\weyoto-gitgpt\models" />
       <recent name="C:\Coding files\weyoto-gitgpt" />
       <recent name="C:\Coding files\wey-sentinel" />
