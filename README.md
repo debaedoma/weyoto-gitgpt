@@ -25,7 +25,7 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - The codebase that will require another thing somewhere else to be changed or updated as well
 
 3. **Ensure GPT schema consistency**:
-   - Any backend changes to `/query` must be reflected in `gpt/schema.yaml` and versioned
+   - Any backend changes to `/query/{source}` endpoints (e.g., `/query/github`) must be reflected in the corresponding schema file (e.g., `gpt/schema/github.yaml`) and versioned in `gpt-schema-changelog.md`.
 
 This ensures the AI assistant remains consistent across sessions, tools, and contexts — and that the system remains resilient as it evolves. 
 
