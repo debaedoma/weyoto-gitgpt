@@ -15,6 +15,7 @@ deployment:
 auth:
   api_key_header: "x-api-key"
   user_identifier: "email"
+  shared_across_sources: true
 
 billing:
   plans:

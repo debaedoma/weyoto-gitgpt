@@ -24,8 +24,12 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - Deployment provider or secret management
    - The codebase that will require another thing somewhere else to be changed or updated as well
 
-3. **Ensure GPT schema consistency**:
-   - Any backend changes to `/query/{source}` endpoints (e.g., `/query/github`) must be reflected in the corresponding schema file (e.g., `gpt/schema/github.yaml`) and versioned in `gpt-schema-changelog.md`.
+5. **Ensure GPT schema consistency**:
+   - Each data source (e.g., GitHub, Figma, Drive) is exposed via a separate `/query/{source}` endpoint
+   - Each data source is mapped to a distinct GPT **action** using its own YAML schema
+   - All actions live inside the same Custom GPT and share the same permanent API key
+   - Schema files are stored in: `gpt/schema/github.yaml`, `gpt/schema/figma.yaml`, etc.
+   - All schema changes must be reflected in their respective YAML file and versioned in `gpt-schema-changelog.md`
 
 This ensures the AI assistant remains consistent across sessions, tools, and contexts — and that the system remains resilient as it evolves. 
 
