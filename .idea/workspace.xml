@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="432e3930-b0cc-4951-966b-9c4aa8891c8c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gpt-schema-changelog.md" beforeDir="false" afterPath="$PROJECT_DIR$/gpt-schema-changelog.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system_config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/system_config.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -10,7 +10,7 @@ deployment:
   local_proxy: "Cloudflare Tunnel"
   env_file: "N/A"
   uses_system_env_vars: true
-  schema_path: "gpt/schema.yaml"
+  schema_path: "gpt/schema/"
 
 auth:
   api_key_header: "x-api-key"
@@ -32,7 +32,7 @@ data_sources:
     env_keys: []
 
 schema:
-  file: "gpt/schema.yaml"
+  directory: "gpt/schema/"
   changelog: "gpt-schema-changelog.md"
 
 env_required:
