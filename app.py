@@ -1,7 +1,7 @@
 from flask import Flask
 from config import Config
 from extensions import db
-from Modules.github.routes import github_bp  # We'll define this next
+from modules.github.routes import github_bp  # We'll define this next
 
 def create_app():
     app = Flask(__name__)
