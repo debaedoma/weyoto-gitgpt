@@ -23,6 +23,10 @@ def require_api_key(f):
                 "instructions": "Visit Weyoto GitGPT to get your personal key."
             }), 403
 
+        # ✅ Track request usage
+        user.request_count += 1
+        db.session.commit()
+
         # Attach user to the request context (optional for now)
         request.user = user
         return f(*args, **kwargs)
