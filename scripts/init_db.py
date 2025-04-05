@@ -1,3 +1,4 @@
+# This script creates the tables from the models
 from app import create_app
 from extensions import db
 

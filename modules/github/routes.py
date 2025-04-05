@@ -6,7 +6,7 @@ github_bp = Blueprint("github_bp", __name__)
 def query_github():
     data = request.get_json() or {}
     repo = data.get("repo")
-    question = data.get("question")
+    question  = data.get("question")
 
     return jsonify({
         "status": "ok",
