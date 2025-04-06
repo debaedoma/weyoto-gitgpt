@@ -19,7 +19,7 @@ psql -U postgres                      # Login to PostgreSQL
 CREATE DATABASE weyoto_assist;         # Create a database
 CREATE USER weyoto_user WITH ENCRYPTED PASSWORD 'yourpassword';  # Create user
 GRANT ALL PRIVILEGES ON DATABASE weyoto_assist TO weyoto_user;  # Grant privileges
-\c weyoto_assist                      # Connect to the database
+\c weyoto_gitgpt                      # Connect to the database
 \l                                     # List all databases
 \q                                     # Exit PostgreSQL
 
