@@ -5,8 +5,9 @@ url = "http://127.0.0.1:5000/query/github/"
 
 # JSON body you're sending to the API
 data = {
-    "repo": "https://github.com/yourname/yourrepo",
-    "question": "What does this repo do?"
+    "action": "fetch_file",
+    "repo": "octocat/hello-world",
+    "path": "README.md"
 }
 
 # Optional headers – not needed unless your API requires keys
