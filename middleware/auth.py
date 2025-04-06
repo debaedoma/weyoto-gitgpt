@@ -27,7 +27,8 @@ def require_api_key(f):
         user.request_count += 1
         db.session.commit()
 
-        # Attach user to the request context (optional for now)
+        # Make user available to the route (optional)
         request.user = user
+
         return f(*args, **kwargs)
     return decorated

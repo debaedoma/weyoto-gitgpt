@@ -1,6 +1,10 @@
 from flask import Blueprint, request, jsonify
 from middleware.auth import require_api_key
-from modules.github.services import fetch_file_from_github
+from modules.github.services import (
+    fetch_file_from_github,
+    list_repo_files,
+    get_latest_commit_info
+)
 
 github_bp = Blueprint("github_bp", __name__)
 
@@ -8,31 +12,57 @@ github_bp = Blueprint("github_bp", __name__)
 @require_api_key
 def query_github():
     data = request.get_json() or {}
+
+    action = data.get("action")
     repo = data.get("repo")
     file_path = data.get("path", "README.md")
     question = data.get("question")
 
-    # Validate inputs
     if not repo:
         return jsonify({"error": "Missing 'repo' field."}), 400
 
     user = request.user
     if not user.github_pat:
-        return jsonify({"error": "GitHub token not found. Please connect your account."}), 403
+        return jsonify({"error": "GitHub token not found."}), 403
 
     try:
-        content = fetch_file_from_github(repo, file_path, user.github_pat)
+        if action == "fetch_file":
+            content = fetch_file_from_github(repo, file_path, user.github_pat)
+            if content is None:
+                return jsonify({"error": f"File '{file_path}' not found in '{repo}'."}), 404
+            return jsonify({
+                "status": "ok",
+                "action": "fetch_file",
+                "repo": repo,
+                "file_path": file_path,
+                "content": content[:2000],
+                "question": question
+            })
+
+        elif action == "list_files":
+            files = list_repo_files(repo, user.github_pat)
+            if files is None:
+                return jsonify({"error": f"Repo '{repo}' not found."}), 404
+            return jsonify({
+                "status": "ok",
+                "action": "list_files",
+                "repo": repo,
+                "files": files[:500]  # Trim for now
+            })
+
+        elif action == "get_latest_commit":
+            commit = get_latest_commit_info(repo, user.github_pat)
+            if commit is None:
+                return jsonify({"error": f"Repo '{repo}' not found."}), 404
+            return jsonify({
+                "status": "ok",
+                "action": "get_latest_commit",
+                "repo": repo,
+                "latest_commit": commit
+            })
+
+        else:
+            return jsonify({"error": "Invalid or missing action."}), 400
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-    if content is None:
-        return jsonify({"error": f"File '{file_path}' not found in '{repo}'."}), 404
-
-    return jsonify({
-        "status": "ok",
-        "source": "github",
-        "repo": repo,
-        "file_path": file_path,
-        "content": content[:2000],  # Optional: truncate long files for GPT
-        "question": question
-    })
