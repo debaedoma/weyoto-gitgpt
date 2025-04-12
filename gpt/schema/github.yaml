@@ -1,0 +1,21 @@
+name: query_github
+description: Perform various GitHub operations including fetching files, listing all repo files, and retrieving latest commit info.
+parameters:
+  type: object
+  properties:
+    action:
+      type: string
+      description: Type of operation to perform.
+      enum: [fetch_file, list_files, get_latest_commit]
+    repo:
+      type: string
+      description: The GitHub repository in owner/repo format.
+    path:
+      type: string
+      description: The file path within the repository (used for fetch_file).
+    question:
+      type: string
+      description: The question or task related to the GitHub data (optional, passed to GPT context).
+  required:
+    - action
+    - repo

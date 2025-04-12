@@ -51,3 +51,18 @@ This file documents the system behaviors and external logic that GPT tools and A
 - Upgrade prompts are shown via GPT error messages returned from backend
 
 ---
+
+## ✅ Currently Supported GPT Actions
+
+### GitHub (query_github)
+- Unified route: `/query/github`
+- Uses the same API key and user token from DB
+- `action` field determines behavior
+
+#### Available actions:
+| Name | Description |
+|------|-------------|
+| `fetch_file` | Get raw content of one file |
+| `list_files` | List all files in a repo |
+| `get_latest_commit` | Get latest commit message and author |
+
