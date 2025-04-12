@@ -20,7 +20,7 @@ CREATE DATABASE weyoto_assist;         # Create a database
 CREATE USER weyoto_user WITH ENCRYPTED PASSWORD 'yourpassword';  # Create user
 GRANT ALL PRIVILEGES ON DATABASE weyoto_assist TO weyoto_user;  # Grant privileges
 \c weyoto_gitgpt                      # Connect to the database
-\l                                     # List all databases
+\l                                      # List all databases
 \q                                     # Exit PostgreSQL
 
 # ✅ Flask Application Management
