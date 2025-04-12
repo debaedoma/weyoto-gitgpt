@@ -1,5 +1,5 @@
 from extensions import db
-import datetime
+from datetime import datetime, timedelta
 import secrets
 
 class User(db.Model):
@@ -10,7 +10,6 @@ class User(db.Model):
     api_key = db.Column(db.String, unique=True, nullable=False, default=lambda: secrets.token_hex(16))
     github_pat = db.Column(db.String, nullable=True)
     request_count = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     verification_code = db.Column(db.String, nullable=True)
     code_expires_at = db.Column(db.DateTime, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-

@@ -74,7 +74,7 @@ Weyoto GitGPT uses **passwordless email authentication**.
 
 ### 🔐 Flow:
 1. User submits their email to `/auth/request-code`
-2. A short verification code is emailed to them
+2. A short verification code (6 digits) is emailed to them
 3. User submits the code to `/auth/verify-code`
 4. If successful, they are returned their API key and can start using the system
 

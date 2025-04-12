@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gpt-awareness.md" beforeDir="false" afterPath="$PROJECT_DIR$/gpt-awareness.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

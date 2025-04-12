@@ -13,6 +13,7 @@ def create_app():
 
     # Register Blueprints
     app.register_blueprint(github_bp, url_prefix="/query/github")
+    app.register_blueprint(auth_bp, url_prefix="/auth")
 
     return app
 
