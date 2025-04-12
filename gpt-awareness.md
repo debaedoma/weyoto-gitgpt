@@ -66,3 +66,18 @@ This file documents the system behaviors and external logic that GPT tools and A
 | `list_files` | List all files in a repo |
 | `get_latest_commit` | Get latest commit message and author |
 
+---
+
+## ✅ User Registration Method
+
+Weyoto GitGPT uses **passwordless email authentication**.
+
+### 🔐 Flow:
+1. User submits their email to `/auth/request-code`
+2. A short verification code is emailed to them
+3. User submits the code to `/auth/verify-code`
+4. If successful, they are returned their API key and can start using the system
+
+This method is universal and lightweight. It works across GPT tools, frontend apps, and CLI.
+
+No GitHub login or password is required. OAuth may be added later for GitHub token management.
