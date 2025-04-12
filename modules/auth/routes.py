@@ -1,14 +1,11 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
 from models.user import User
+from services.email import send_verification_email
 from datetime import datetime, timedelta
 import random
 
 auth_bp = Blueprint("auth_bp", __name__)
-
-def send_email_code(email, code):
-    # For now: just print it to console. Replace with real SMTP later.
-    print(f"📬 Sending verification code {code} to {email}")
 
 @auth_bp.route("/request-code", methods=["POST"])
 def request_code():
@@ -31,7 +28,7 @@ def request_code():
     db.session.add(user)
     db.session.commit()
 
-    send_email_code(email, code)
+    send_verification_email(email, code)
 
     return jsonify({"message": f"Verification code sent to {email}."})
 
