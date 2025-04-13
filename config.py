@@ -5,5 +5,5 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     API_KEY_HEADER = "x-api-key"
     RESEND_API_KEY = os.getenv("RESEND_API_KEY")
-    EMAIL_SENDER = os.getenv("EMAIL_SENDER", "noreply@weyoto.com")
+    EMAIL_SENDER = os.getenv("EMAIL_SENDER", "noreply@notifications.weyoto.com")
 
