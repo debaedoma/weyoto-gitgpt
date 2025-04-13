@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="432e3930-b0cc-4951-966b-9c4aa8891c8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Commands" beforeDir="false" afterPath="$PROJECT_DIR$/Commands" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/github/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/github/routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/test_github_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/test_github_query.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

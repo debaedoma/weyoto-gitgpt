@@ -25,7 +25,7 @@ GRANT ALL PRIVILEGES ON DATABASE weyoto_assist TO weyoto_user;  # Grant privileg
 \du                                     # View list of db users
 \dt                                     # View list of tables in the current DB
 \q                                     # View  list of table columns and properties
-SELECT * FROM table_name;               # Display data in a tabl
+SELECT * FROM table_name;               # Display data in a table
 DROP TABLE table_name;                  # Delete a DB table
 
 # ✅ Flask Application Management

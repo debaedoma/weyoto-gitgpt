@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from extensions import db
 from middleware.auth import require_api_key
 from modules.github.services import (
     fetch_file_from_github,
