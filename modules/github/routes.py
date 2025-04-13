@@ -1,72 +1,93 @@
 from flask import Blueprint, request, jsonify
 from extensions import db
 from middleware.auth import require_api_key
+from models.user import User
 from modules.github.services import (
     fetch_file_from_github,
     list_repo_files,
-    get_latest_commit_info
+    get_latest_commit_info,
+    list_user_repos
 )
 
 github_bp = Blueprint("github_bp", __name__)
 
-@github_bp.route("/", methods=["POST"])
+@github_bp.route("", methods=["POST"])
 @require_api_key
 def query_github():
-    data = request.get_json() or {}
+    user = request.user
+    data = request.get_json()
 
     action = data.get("action")
     repo = data.get("repo")
-    file_path = data.get("path", "README.md")
-    question = data.get("question")
+    file_path = data.get("path")
 
-    if not repo:
-        return jsonify({"error": "Missing 'repo' field."}), 400
-
-    user = request.user
-    if not user.github_pat:
-        return jsonify({"error": "GitHub token not found."}), 403
+    if not action:
+        return jsonify({"error": "Missing action field."}), 400
 
     try:
         if action == "fetch_file":
+            if not repo or not file_path:
+                return jsonify({"error": "Missing repo or path for fetch_file."}), 400
+
             content = fetch_file_from_github(repo, file_path, user.github_pat)
             if content is None:
-                return jsonify({"error": f"File '{file_path}' not found in '{repo}'."}), 404
+                return jsonify({"error": "File not found."}), 404
+
             return jsonify({
                 "status": "ok",
-                "action": "fetch_file",
+                "action": action,
                 "repo": repo,
-                "file_path": file_path,
-                "content": content[:2000],
-                "question": question
+                "path": file_path,
+                "content": content
             })
 
         elif action == "list_files":
+            if not repo:
+                return jsonify({"error": "Missing repo for list_files."}), 400
+
             files = list_repo_files(repo, user.github_pat)
             if files is None:
-                return jsonify({"error": f"Repo '{repo}' not found."}), 404
+                return jsonify({"error": "Repo not found or empty."}), 404
+
             return jsonify({
                 "status": "ok",
-                "action": "list_files",
+                "action": action,
                 "repo": repo,
-                "files": files[:500]  # Trim for now
+                "files": files
             })
 
         elif action == "get_latest_commit":
+            if not repo:
+                return jsonify({"error": "Missing repo for get_latest_commit."}), 400
+
             commit = get_latest_commit_info(repo, user.github_pat)
             if commit is None:
-                return jsonify({"error": f"Repo '{repo}' not found."}), 404
+                return jsonify({"error": "Could not fetch commit."}), 404
+
             return jsonify({
                 "status": "ok",
-                "action": "get_latest_commit",
+                "action": action,
                 "repo": repo,
-                "latest_commit": commit
+                "commit": commit
+            })
+
+        elif action == "list_user_repos":
+            repos = list_user_repos(user.github_pat)
+            if repos is None:
+                return jsonify({"error": "Unable to retrieve repositories."}), 404
+
+            return jsonify({
+                "status": "ok",
+                "action": action,
+                "repos": repos
             })
 
         else:
-            return jsonify({"error": "Invalid or missing action."}), 400
+            return jsonify({"error": f"Unsupported action: {action}"}), 400
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "GitHub request failed.", "details": str(e)}), 500
+
 
 @github_bp.route("/set-pat", methods=["POST"])
 @require_api_key
@@ -82,4 +103,3 @@ def set_pat():
     db.session.commit()
 
     return jsonify({"message": "GitHub token saved."})
-

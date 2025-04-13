@@ -1,21 +1,24 @@
 name: query_github
-description: Perform various GitHub operations including fetching files, listing all repo files, and retrieving latest commit info.
+description: Perform various GitHub operations including fetching files, listing all repo files, getting the latest commit, and listing the user's accessible repositories.
 parameters:
   type: object
   properties:
     action:
       type: string
-      description: Type of operation to perform.
-      enum: [fetch_file, list_files, get_latest_commit]
+      description: The GitHub operation to perform.
+      enum: [fetch_file, list_files, get_latest_commit, list_user_repos]
+
     repo:
       type: string
-      description: The GitHub repository in owner/repo format.
+      description: The GitHub repository in owner/repo format (required for all actions except list_user_repos).
+
     path:
       type: string
-      description: The file path within the repository (used for fetch_file).
+      description: The file path in the repo (only used for fetch_file).
+
     question:
       type: string
-      description: The question or task related to the GitHub data (optional, passed to GPT context).
+      description: The user question or intent related to GitHub content (optional, for GPT context only).
+
   required:
     - action
-    - repo
