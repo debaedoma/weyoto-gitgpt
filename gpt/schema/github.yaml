@@ -1,24 +1,41 @@
-name: query_github
-description: Perform various GitHub operations including fetching files, listing all repo files, getting the latest commit, and listing the user's accessible repositories.
-parameters:
-  type: object
-  properties:
-    action:
-      type: string
-      description: The GitHub operation to perform.
-      enum: [fetch_file, list_files, get_latest_commit, list_user_repos]
+openapi: 3.1.0
+info:
+  title: GitHub Query Tool
+  version: 1.0.0
+servers:
+  - url: http://gitgpt.weyoto.com
 
-    repo:
-      type: string
-      description: The GitHub repository in owner/repo format (required for all actions except list_user_repos).
+paths:
+  /query/github:
+    post:
+      operationId: Github
+      summary: Query your GitHub repos — list repos, fetch files, check commits
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  description: The GitHub operation to perform.
+                  enum:
+                    - list_user_repos
+                    - list_files
+                    - fetch_file
+                    - get_latest_commit
 
-    path:
-      type: string
-      description: The file path in the repo (only used for fetch_file).
+                repo:
+                  type: string
+                  description: The GitHub repository in owner/repo format (required for all actions except list_user_repos).
 
-    question:
-      type: string
-      description: The user question or intent related to GitHub content (optional, for GPT context only).
+                path:
+                  type: string
+                  description: The file path in the repo (only used for fetch_file).
 
-  required:
-    - action
+              required:
+                - action
+      responses:
+        "200":
+          description: Successful response.
