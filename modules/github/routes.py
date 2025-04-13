@@ -66,3 +66,19 @@ def query_github():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@github_bp.route("/set-pat", methods=["POST"])
+@require_api_key
+def set_pat():
+    user = request.user
+    data = request.get_json()
+    token = data.get("github_pat")
+
+    if not token:
+        return jsonify({"error": "Missing GitHub token."}), 400
+
+    user.github_pat = token
+    db.session.commit()
+
+    return jsonify({"message": "GitHub token saved."})
+
