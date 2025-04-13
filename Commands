@@ -22,6 +22,11 @@ GRANT ALL PRIVILEGES ON DATABASE weyoto_assist TO weyoto_user;  # Grant privileg
 \c weyoto_gitgpt                      # Connect to the database
 \l                                      # List all databases
 \q                                     # Exit PostgreSQL
+\du                                     # View list of db users
+\dt                                     # View list of tables in the current DB
+\q                                     # View  list of table columns and properties
+SELECT * FROM table_name;               # Display data in a tabl
+DROP TABLE table_name;                  # Delete a DB table
 
 # ✅ Flask Application Management
 flask run                              # Run Flask app
