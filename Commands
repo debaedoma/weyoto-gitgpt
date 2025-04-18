@@ -69,3 +69,11 @@ cloudflared tunnel run weysentinel-local
 git add .
 git commit -m "Initial commit"
 git push origin main
+
+git status             # See what changed
+git add file1 file2    # Only add the ones you want. git add scripts/api.py
+git commit -m "Some message"
+git push
+
+git add -u             # Only add modified/deleted files, not new ones
+
