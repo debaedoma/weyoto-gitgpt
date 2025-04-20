@@ -15,7 +15,8 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - Modular monolith architecture
    - One Blueprint per data source
    - API key authentication only
-   - No dashboards or sessions
+   - No sessions
+   - Minimal, simple dashboard
 
 4. **Warn or request updates** if changes are made to:
    - API schema used by GPTs
@@ -25,7 +26,7 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - The codebase that will require another thing somewhere else to be changed or updated as well
 
 5. **Ensure GPT schema consistency**:
-   - Each data source (e.g., GitHub, Figma, Drive) is exposed via a separate `/query/{source}` endpoint
+   - Each data source (e.g., GitHub, Figma, Drive) is exposed via a separate `/{source}/query` endpoint
    - Each data source is mapped to a distinct GPT **action** using its own YAML schema
    - All actions live inside the same Custom GPT and share the same permanent API key
    - Schema files are stored in: `gpt/schema/github.yaml`, `gpt/schema/figma.yaml`, etc.
