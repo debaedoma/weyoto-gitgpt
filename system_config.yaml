@@ -6,7 +6,7 @@ app:
     - Flask-SQLAlchemy
 
 deployment:
-  provider: "None (local)"
+  provider: "Render (Dev/Staging)"
   local_proxy: "Cloudflare Tunnel"
   env_file: "N/A"
   uses_system_env_vars: true
@@ -19,7 +19,7 @@ auth:
 
 billing:
   plans:
-    free: 1000
+    free: 30/day
     pro: unlimited
 
 data_sources:
@@ -39,3 +39,6 @@ env_required:
   - WEYOTO_GITGPT_DATABASE_URL
   - WEYOTO_API_KEY_SECRET
   - WEYOTO_ALLOWED_ORIGINS
+  - RESEND_API_KEY
+  - EMAIL_SENDER
+

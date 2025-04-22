@@ -62,7 +62,7 @@ This file documents the system behaviors and external logic that GPT tools and A
 ## Currently Supported GPT Actions
 
 ### GitHub (query_github)
-- Unified route: `/query/github`
+- Unified route: `/github/query`
 - Uses the same API key and user token from DB
 - `action` field determines behavior
 
