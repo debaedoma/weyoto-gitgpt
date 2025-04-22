@@ -16,14 +16,11 @@ This file documents the system behaviors and external logic that GPT tools and A
 ## GitHub Integration (MVP)
 
 - Users are required to paste their **Fine-grained GitHub Personal Access Token (PAT)**
-- Minimum required scopes:
-  - `repo`
-  - `read:org`
 - Repository permissions:
   - `Read-only access to contents (repository contents, commits, branches, downloads, releases, and mergers)`
   - `Read-only access to "Commit status"`
   - `Read-only access to Metadata (default and mandatory)`
-- Scopes should be listed in onboarding UI and enforced in documentation
+- Permissions should be listed in onboarding UI and enforced in documentation
 - Data is pulled live using the token (nothing stored)
 
 ---

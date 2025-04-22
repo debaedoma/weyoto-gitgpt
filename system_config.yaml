@@ -26,9 +26,10 @@ data_sources:
   github:
     blueprint: "github_bp"
     auth_type: "PAT"
-    scopes:
-      - repo
-      - read:org
+    permissions:
+      contents: read
+      metadata: read
+      statuses: read
     env_keys: []
 
 schema:
