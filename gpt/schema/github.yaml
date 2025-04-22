@@ -6,7 +6,7 @@ servers:
   - url: http://gitgpt.weyoto.com
 
 paths:
-  /query/github:
+  /github/query:
     post:
       operationId: Github
       summary: Query your GitHub repos — list repos, fetch files, check commits
