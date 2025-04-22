@@ -16,7 +16,7 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - One Blueprint per data source
    - API key authentication only
    - No sessions
-   - Minimal, simple dashboard
+   - Minimal, intuitive, simple dashboard
 
 4. **Warn or request updates** if changes are made to:
    - API schema used by GPTs
@@ -31,6 +31,29 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - All actions live inside the same Custom GPT and share the same permanent API key
    - Schema files are stored in: `gpt/schema/github.yaml`, `gpt/schema/figma.yaml`, etc.
    - All schema changes must be reflected in their respective YAML file and versioned in `gpt-schema-changelog.md`
+
+## ✅ Supported GPT Actions
+
+Currently supported GitHub actions via `/github/query`:
+
+| Action              | Description                             |
+|---------------------|-----------------------------------------|
+| `fetch_file`        | Get raw content of one file             |
+| `list_files`        | List all files in a repo                |
+| `get_latest_commit` | Get latest commit message and author    |
+| `list_user_repos`   | List all repos accessible to the user   |
+
+> Note: Actual route is `/github/query` (not `/query/github`).
+
+## 🌱 Required Environment Variables
+
+Ensure the following env vars are set **at the system level**:
+
+- `WEYOTO_GITGPT_DATABASE_URL`
+- `WEYOTO_API_KEY_SECRET`
+- `WEYOTO_ALLOWED_ORIGINS`
+- `RESEND_API_KEY`
+- `EMAIL_SENDER` (default: `noreply@notifications.weyoto.com`)
 
 This ensures the AI assistant remains consistent across sessions, tools, and contexts — and that the system remains resilient as it evolves. 
 
