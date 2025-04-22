@@ -34,8 +34,8 @@ This file documents the system behaviors and external logic that GPT tools and A
 ## API Schema
 
 - Each data source has its own query endpoint:
-  - GitHub → `/query/github`
-  - Figma → `/query/figma`
+  - GitHub → `/github/query`
+  - Figma → `/figma/query`
   - Drive → `/query/drive`
 - Each data source is exposed as a separate **action** inside one Custom GPT, using its own YAML schema and endpoint (e.g., `/query/github`, `/query/figma`, etc.). All actions share the same permanent API key.
 - This enables better modularity, rate-limiting, error handling, and simplicity for GPT creators

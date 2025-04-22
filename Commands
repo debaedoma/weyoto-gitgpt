@@ -48,7 +48,7 @@ git add .                              # Add all files
 git commit -m "Initial commit"         # Commit changes
 git checkout -b dev                    # Create and switch to a new branch
 git push origin main                   # Push changes to GitHub
-git pull orvenvigin main                   # Pull latest changes
+git pull origin main                   # Pull latest changes
 git status                             # View Git status
 git clone <repo_url>                    # Clone a repository
 
