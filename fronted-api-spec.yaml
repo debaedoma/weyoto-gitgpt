@@ -1,0 +1,62 @@
+weyoto_gitgpt_frontend_api:
+  description: >
+    Frontend API flow for Weyoto GitGPT onboarding — passwordless email login, verification, and GitHub token setup.
+
+  base_url: "https://gitgpt.weyoto.com"
+
+  endpoints:
+
+    - name: Request Email Verification Code
+      method: POST
+      path: /auth/request_code
+      headers:
+        Content-Type: application/json
+      body:
+        email: "user@example.com"
+      success_response:
+        success: true
+        message: "Verification code sent to your email."
+      notes: >
+        Sends a 6-digit verification code to the user's email. No password required.
+
+    - name: Verify Email Code
+      method: POST
+      path: /auth/verify_code
+      headers:
+        Content-Type: application/json
+      body:
+        email: "user@example.com"
+        code: "123456"
+      success_response:
+        success: true
+      notes: >
+        Verifies the code and creates a permanent API Key in the backend database which is returned in a response.
+        The API Key will only be revealed to the user after they complete GitHub PAT setup.
+        Save authentication context after this step to proceed to GitHub connection.
+
+    - name: Set GitHub Personal Access Token
+      method: POST
+      path: /auth/set_github_token
+      headers:
+        Content-Type: application/json
+        x-api-key: "your-user-api-key"
+      body:
+        token: "your-github-pat"
+      success_response:
+        success: true
+        message: "GitHub Token saved successfully."
+      notes: >
+        Stores user's GitHub PAT securely to allow GitGPT to access repositories in real-time.
+
+  usage_flow:
+    - Step 1: User enters email and requests code (POST /auth/request_code)
+    - Step 2: User enters 6-digit code to verify (POST /auth/verify_code)
+    - Step 3: User submits GitHub PAT (POST /auth/set_github_token)
+    - Step 4: API Key is revealed (or available via future /user/api_key endpoint)
+    - Step 5: User is now fully authenticated and ready to use GitHub queries.
+
+  developer_tips:
+    - Always include x-api-key header after verification.
+    - Use JSON POSTs for all requests.
+    - Handle errors gracefully and prompt users to retry if needed.
+    - Store API Key securely (e.g., localStorage/sessionStorage, encrypted if needed).
