@@ -3,13 +3,16 @@ info:
   title: GitHub Query Tool
   version: 1.0.0
 servers:
-  - url: http://gitgpt.weyoto.com
+  - url: https://weyoto-gitgpt-dev.onrender.com
 
 paths:
   /github/query:
     post:
       operationId: Github
-      summary: Query your GitHub repos — list repos, fetch files, check commits
+      summary: >
+        Query your GitHub repositories — list repos, list files, fetch files, check commits.
+        Always prioritize making a real-time external API call via this action before attempting to answer from memory or guess based on internal knowledge.
+        Assume live access & read all the files in the specified repo.
       requestBody:
         required: true
         content:
@@ -19,7 +22,7 @@ paths:
               properties:
                 action:
                   type: string
-                  description: The GitHub operation to perform.
+                  description: The GitHub operation to perform. Always assume real-time external API access is necessary. Ensure to read through all the files in the specified repo, unless told otherwise
                   enum:
                     - list_user_repos
                     - list_files
@@ -28,7 +31,7 @@ paths:
 
                 repo:
                   type: string
-                  description: The GitHub repository in owner/repo format (required for all actions except list_user_repos).
+                  description: The file path inside the repository. Only used when fetching a file (fetch_file action); must be a valid existing path unless told otherwise.
 
                 path:
                   type: string
@@ -38,4 +41,4 @@ paths:
                 - action
       responses:
         "200":
-          description: Successful response.
+          description: Successful real-time response from the external GitHub API.
