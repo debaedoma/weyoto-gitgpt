@@ -8,7 +8,7 @@ weyoto_gitgpt_frontend_api:
 
     - name: Request Email Verification Code
       method: POST
-      path: /auth/request_code
+      path: /auth/request-code
       headers:
         Content-Type: application/json
       body:
@@ -21,7 +21,7 @@ weyoto_gitgpt_frontend_api:
 
     - name: Verify Email Code
       method: POST
-      path: /auth/verify_code
+      path: /auth/verify-code
       headers:
         Content-Type: application/json
       body:
@@ -36,7 +36,7 @@ weyoto_gitgpt_frontend_api:
 
     - name: Set GitHub Personal Access Token
       method: POST
-      path: /auth/set_github_token
+      path: /auth/set-pat
       headers:
         Content-Type: application/json
         x-api-key: "your-user-api-key"
