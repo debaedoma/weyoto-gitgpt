@@ -36,7 +36,7 @@ weyoto_gitgpt_frontend_api:
 
     - name: Set GitHub Personal Access Token
       method: POST
-      path: /auth/set-pat
+      path: /github/set-pat
       headers:
         Content-Type: application/json
         x-api-key: "your-user-api-key"

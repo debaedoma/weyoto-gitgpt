@@ -7,6 +7,8 @@
     <list default="true" id="432e3930-b0cc-4951-966b-9c4aa8891c8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fronted-api-spec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/fronted-api-spec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/email.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/email.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
