@@ -4,7 +4,7 @@ weyoto_gitgpt_frontend_api:
 
   base_url: "https://weyoto-gitgpt-dev.onrender.com/"
 
-  endpoints:
+  endpoints (5):
 
     - name: Request Email Verification Code
       method: POST
@@ -17,7 +17,10 @@ weyoto_gitgpt_frontend_api:
         success: true
         message: "Verification code sent to your email."
       notes: >
-        Sends a 6-digit verification code to the user's email. No password required.
+        Sends a 6-digit verification code to the user's email.
+             If a code was recently sent (within 60 seconds), the server will return an error response with a 429 status.
+             This helps prevent abuse and ensures fair use of the system.
+             No password is required — only email verification.
 
     - name: Verify Email Code
       method: POST
@@ -73,7 +76,7 @@ weyoto_gitgpt_frontend_api:
         message: "API key regenerated successfully."
         api_key: "new-api-key-hex-string"
       notes: >
-        Requires a valid 6-digit verification code that was emailed to the user.
+        Requires a valid 6-digit verification code that was emailed to the user, triggered by the /request-code endpoint
         This code must be submitted in the request body and must not be expired.
         After regenerating the API key, the previous key becomes invalid.
 
