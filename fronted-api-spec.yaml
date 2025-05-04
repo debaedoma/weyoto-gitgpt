@@ -44,12 +44,19 @@ weyoto_gitgpt_frontend_api:
         Content-Type: application/json
         x-api-key: "your-user-api-key"
       body:
-        token: "github-pat"
+        github_pat: "your-github-personal-access-token"
       success_response:
-        success: true
-        message: "GitHub Token saved successfully."
+        message: "GitHub token saved successfully."
+      error_response:
+        400:
+          error: "Missing GitHub token."
+        401:
+          error: "Invalid or expired GitHub token. Ensure you're inputting a valid fine-grained PAT"
       notes: >
-        Stores and updates user's GitHub PAT securely to allow GitGPT to access repositories in real-time.
+        Stores user's GitHub PAT securely to allow GitGPT to access repositories in real-time.
+        Validates the GitHub token before saving.
+        If the token is invalid or expired, the API will return a 401 error and will not save it.
+        Make sure the PAT is fine-grained, not classic, and has access to the repos you intend to use.
 
     - name: Get API Key (Authenticated)
       method: GET
