@@ -18,23 +18,30 @@ def request_code():
     if not email:
         return jsonify({"error": "Email is required."}), 400
 
-    code = f"{random.randint(100000, 999999)}"
-    expiry = datetime.utcnow() + timedelta(minutes=30)
-
     user = User.query.filter_by(email=email).first()
     if not user:
         user = User(email=email)
 
+    # Cooldown check (60 seconds)
+    if user.last_code_sent_at and (datetime.utcnow() - user.last_code_sent_at).total_seconds() < 60:
+        return jsonify({
+            "error": "Please wait before requesting another code.",
+            "cooldown_seconds": 60
+        }), 429
+
+    code = f"{random.randint(100000, 999999)}"
+    expiry = datetime.utcnow() + timedelta(minutes=30)
+
     user.verification_code = code
     user.code_expires_at = expiry
+    user.last_code_sent_at = datetime.utcnow()  # 👈 Track timestamp
 
     db.session.add(user)
     db.session.commit()
 
     send_verification_email(email, code)
 
-    return jsonify({"message": f"Verification code sent to {email}."})
-
+    return jsonify({ "message": f"Verification code sent to {email}." })
 
 @auth_bp.route("/verify-code", methods=["POST"])
 def verify_code():

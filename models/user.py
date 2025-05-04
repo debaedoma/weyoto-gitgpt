@@ -13,3 +13,4 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     verification_code = db.Column(db.String, nullable=True)
     code_expires_at = db.Column(db.DateTime, nullable=True)
+    last_code_sent_at = db.Column(db.DateTime, nullable=True)

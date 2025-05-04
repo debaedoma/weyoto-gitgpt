@@ -41,12 +41,42 @@ weyoto_gitgpt_frontend_api:
         Content-Type: application/json
         x-api-key: "your-user-api-key"
       body:
-        token: "your-github-pat"
+        token: "github-pat"
       success_response:
         success: true
         message: "GitHub Token saved successfully."
       notes: >
         Stores user's GitHub PAT securely to allow GitGPT to access repositories in real-time.
+
+    - name: Get API Key (Authenticated)
+      method: GET
+      path: /auth/view-api-key
+      headers:
+        Content-Type: application/json
+        x-api-key: "your-user-api-key"
+      success_response:
+        email: "user@example.com"
+        api_key: "e4f7c1a2b8309cf458f47cddf8495d6d"
+      notes: >
+        Returns the currently authenticated user's API key and email.
+        Requires a valid x-api-key header from a previously verified login.
+
+    - name: Regenerate API Key (Email Code Required)
+      method: POST
+      path: /auth/regenerate-api-key
+      headers:
+        Content-Type: application/json
+        x-api-key: "your-user-api-key"
+      body:
+        code: "123456"
+      success_response:
+        message: "API key regenerated successfully."
+        api_key: "new-api-key-hex-string"
+      notes: >
+        Requires a valid 6-digit verification code that was emailed to the user.
+        This code must be submitted in the request body and must not be expired.
+        After regenerating the API key, the previous key becomes invalid.
+
 
   usage_flow:
     - Step 1: User enters email and requests code (POST /auth/request_code)
