@@ -50,11 +50,9 @@ Currently supported GitHub actions via `/github/query`:
 Ensure the following env vars are set **at the system level**:
 
 - `WEYOTO_GITGPT_DATABASE_URL`
-- `WEYOTO_API_KEY_SECRET`
-- `WEYOTO_ALLOWED_ORIGINS`
 - `RESEND_API_KEY`
 - `EMAIL_SENDER` (default: `noreply@notifications.weyoto.com`)
-
+- `COR_ORIGINS`
 This ensures the AI assistant remains consistent across sessions, tools, and contexts — and that the system remains resilient as it evolves. 
 
 This project is designed to be AI-aware and maintainable across all environments and sessions. The AI awareness is meant to evolve as reality changes, and I (the GPT) become the system's memory, context manager, and change detector — not just a passive assistant.
