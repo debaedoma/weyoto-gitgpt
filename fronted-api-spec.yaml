@@ -49,7 +49,7 @@ weyoto_gitgpt_frontend_api:
         success: true
         message: "GitHub Token saved successfully."
       notes: >
-        Stores user's GitHub PAT securely to allow GitGPT to access repositories in real-time.
+        Stores and updates user's GitHub PAT securely to allow GitGPT to access repositories in real-time.
 
     - name: Get API Key (Authenticated)
       method: GET

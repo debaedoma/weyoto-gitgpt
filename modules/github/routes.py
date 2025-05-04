@@ -97,9 +97,17 @@ def set_pat():
     token = data.get("github_pat")
 
     if not token:
-        return jsonify({"error": "Missing GitHub token."}), 400
+        return jsonify({ "error": "Missing GitHub token." }), 400
+
+    # 🔍 Try calling GitHub to validate token before saving
+    try:
+        test_repos = list_user_repos(token)
+        if test_repos is None:
+            raise ValueError("Invalid PAT")
+    except Exception:
+        return jsonify({ "error": "Invalid or expired GitHub token. Ensure you're inputting a valid fine-grained PAT" }), 401
 
     user.github_pat = token
     db.session.commit()
 
-    return jsonify({"message": "GitHub token saved."})
+    return jsonify({ "message": "GitHub token saved successfully." })
