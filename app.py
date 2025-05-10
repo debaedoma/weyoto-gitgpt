@@ -23,7 +23,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
     if Config.ENABLE_GITHUB_OAUTH:
         from modules.auth.github_oauth_routes import github_oauth_bp
-        app.register_blueprint(github_oauth_bp, url_prefix="/auth")
+        app.register_blueprint(github_oauth_bp, url_prefix="/github-auth")
 
     return app
 
