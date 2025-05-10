@@ -14,3 +14,4 @@ class User(db.Model):
     verification_code = db.Column(db.String, nullable=True)
     code_expires_at = db.Column(db.DateTime, nullable=True)
     last_code_sent_at = db.Column(db.DateTime, nullable=True)
+    github_token = db.Column(db.String, nullable=True)

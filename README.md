@@ -53,6 +53,10 @@ Ensure the following env vars are set **at the system level**:
 - `RESEND_API_KEY`
 - `EMAIL_SENDER` (default: `noreply@notifications.weyoto.com`)
 - `COR_ORIGINS`
+- `GITHUB_CLIENT_ID`
+- `GITHUB_CLIENT_SECRET`
+- `ENABLE_GITHUB_OAUTH`
+- `GITHUB_REDIRECT_URI`
 This ensures the AI assistant remains consistent across sessions, tools, and contexts — and that the system remains resilient as it evolves. 
 
 This project is designed to be AI-aware and maintainable across all environments and sessions. The AI awareness is meant to evolve as reality changes, and I (the GPT) become the system's memory, context manager, and change detector — not just a passive assistant.

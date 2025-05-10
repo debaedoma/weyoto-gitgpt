@@ -29,7 +29,8 @@ def query_github():
             if not repo or not file_path:
                 return jsonify({"error": "Missing repo or path for fetch_file."}), 400
 
-            content = fetch_file_from_github(repo, file_path, user.github_pat)
+            content = fetch_file_from_github(repo, file_path, user.github_token or user.github_pat
+)
             if content is None:
                 return jsonify({"error": "File not found."}), 404
 
@@ -45,7 +46,7 @@ def query_github():
             if not repo:
                 return jsonify({"error": "Missing repo for list_files."}), 400
 
-            files = list_repo_files(repo, user.github_pat)
+            files = list_repo_files(repo, user.github_token or user.github_pat)
             if files is None:
                 return jsonify({"error": "Repo not found or empty."}), 404
 
@@ -60,7 +61,7 @@ def query_github():
             if not repo:
                 return jsonify({"error": "Missing repo for get_latest_commit."}), 400
 
-            commit = get_latest_commit_info(repo, user.github_pat)
+            commit = get_latest_commit_info(repo, user.github_token or user.github_pat)
             if commit is None:
                 return jsonify({"error": "Could not fetch commit."}), 404
 
@@ -72,7 +73,7 @@ def query_github():
             })
 
         elif action == "list_user_repos":
-            repos = list_user_repos(user.github_pat)
+            repos = list_user_repos(user.github_token or user.github_pat)
             if repos is None:
                 return jsonify({"error": "Unable to retrieve repositories."}), 404
 
