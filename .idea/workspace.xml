@@ -7,6 +7,8 @@
     <list default="true" id="432e3930-b0cc-4951-966b-9c4aa8891c8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/auth/github_oauth_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/github_oauth_routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,17 +41,17 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Coding files/weyoto-assist",
+    "last_opened_file_path": "C:/Coding files/weyoto-gitgpt/modules/auth",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Coding files\weyoto-gitgpt\modules\auth" />
       <recent name="C:\Coding files\weyoto-gitgpt\frontend\public\src\services" />
       <recent name="C:\Coding files\weyoto-gitgpt\frontend\public\src\pages" />
       <recent name="C:\Coding files\weyoto-gitgpt\frontend\public\src\hooks" />
       <recent name="C:\Coding files\weyoto-gitgpt\frontend\public\src\components" />
-      <recent name="C:\Coding files\weyoto-gitgpt\Scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Coding files\weyoto-gitgpt\Modules\github" />
