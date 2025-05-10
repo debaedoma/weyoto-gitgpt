@@ -29,8 +29,7 @@ def query_github():
             if not repo or not file_path:
                 return jsonify({"error": "Missing repo or path for fetch_file."}), 400
 
-            content = fetch_file_from_github(repo, file_path, user.github_token or user.github_pat
-)
+            content = fetch_file_from_github(repo, file_path, user.github_token or user.github_pat)
             if content is None:
                 return jsonify({"error": "File not found."}), 404
 

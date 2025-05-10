@@ -18,9 +18,9 @@ weyoto_gitgpt_frontend_api:
         message: "Verification code sent to your email."
       notes: >
         Sends a 6-digit verification code to the user's email.
-             If a code was recently sent (within 60 seconds), the server will return an error response with a 429 status.
-             This helps prevent abuse and ensures fair use of the system.
-             No password is required — only email verification.
+        If a code was recently sent (within 60 seconds), the server will return an error response with a 429 status.
+        This helps prevent abuse and ensures fair use of the system.
+        No password is required — only email verification.
 
     - name: Verify Email Code
       method: POST
