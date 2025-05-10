@@ -10,13 +10,14 @@ from modules.github.services import (
 )
 
 github_bp = Blueprint("github_bp", __name__)
-token = user.github_token or user.github_pat
 
 @github_bp.route("/query", methods=["POST"])
 @require_api_key
 def query_github():
     user = request.user
     data = request.get_json()
+
+    token = user.github_token or user.github_pat
 
     action = data.get("action")
     repo = data.get("repo")
