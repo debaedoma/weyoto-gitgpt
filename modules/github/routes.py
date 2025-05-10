@@ -10,6 +10,7 @@ from modules.github.services import (
 )
 
 github_bp = Blueprint("github_bp", __name__)
+token = user.github_token or user.github_pat
 
 @github_bp.route("/query", methods=["POST"])
 @require_api_key
@@ -72,7 +73,7 @@ def query_github():
             })
 
         elif action == "list_user_repos":
-            repos = list_user_repos(user.github_token)
+            repos = list_user_repos(token)
             if repos is None:
                 return jsonify({"error": "Unable to retrieve repositories."}), 404
 
