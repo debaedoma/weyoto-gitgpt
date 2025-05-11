@@ -2,7 +2,7 @@ weyoto_gitgpt_frontend_api:
   description: >
     Frontend API flow for Weyoto GitGPT onboarding — passwordless email login, verification, and GitHub token setup.
 
-  base_url: "https://weyoto-gitgpt-dev.onrender.com/"
+  base_url: "https://gitgpt-staging.weyoto.com/"
 
   endpoints (5):
 
