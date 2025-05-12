@@ -12,6 +12,7 @@ github_oauth_bp = Blueprint("github_oauth_bp", __name__)
 
 # Start GitHub OAuth flow
 @github_oauth_bp.route("/github/oauth/start")
+@cross_origin()
 def github_oauth_start():
     # Check if OAuth feature is enabled via config flag
     if not Config.ENABLE_GITHUB_OAUTH:
