@@ -4,6 +4,7 @@ from extensions import db
 from config import Config
 import requests
 from middleware.auth import require_api_key
+import os
 
 # Create a separate blueprint for GitHub OAuth routes
 github_oauth_bp = Blueprint("github_oauth_bp", __name__)
