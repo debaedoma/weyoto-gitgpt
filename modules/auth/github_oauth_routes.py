@@ -12,7 +12,6 @@ github_oauth_bp = Blueprint("github_oauth_bp", __name__)
 
 # Start GitHub OAuth flow
 @github_oauth_bp.route("/github/oauth/start")
-@cross_origin()
 def github_oauth_start():
     # Check if OAuth feature is enabled via config flag
     if not Config.ENABLE_GITHUB_OAUTH:
@@ -25,7 +24,6 @@ def github_oauth_start():
 
 # Handle GitHub's redirect and exchange code for token
 @github_oauth_bp.route("/github/oauth/callback")
-@cross_origin()
 def github_oauth_callback():
     # Check if OAuth is enabled
     if not Config.ENABLE_GITHUB_OAUTH:
@@ -62,8 +60,8 @@ def github_oauth_callback():
 
 # Save GitHub token securely for authenticated user
 @github_oauth_bp.route("/github/oauth/save-token", methods=["POST"])
-@require_api_key
 @cross_origin()
+@require_api_key
 def save_oauth_token():
     # Use x-api-key authenticated user
     user = request.user
