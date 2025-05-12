@@ -54,7 +54,7 @@ def github_oauth_callback():
     # ✅ Do not save token here — user is unknown
     return jsonify({
         "access_token": access_token,
-        "message": "Token retrieved. Now send it to /auth/github/oauth/save-token with your x-api-key."
+        "message": "Token retrieved. Now send it to /github-auth/github/oauth/save-token with your x-api-key."
     })
 
 # Save GitHub token securely for authenticated user
