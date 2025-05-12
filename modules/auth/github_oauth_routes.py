@@ -5,7 +5,7 @@ from config import Config
 import requests
 from middleware.auth import require_api_key
 import os
-from flask_cors import cors_origin
+from flask_cors import cross_origin
 
 # Create a separate blueprint for GitHub OAuth routes
 github_oauth_bp = Blueprint("github_oauth_bp", __name__)
@@ -24,7 +24,7 @@ def github_oauth_start():
 
 # Handle GitHub's redirect and exchange code for token
 @github_oauth_bp.route("/github/oauth/callback")
-@cors_origins()
+@cross_origin()
 def github_oauth_callback():
     # Check if OAuth is enabled
     if not Config.ENABLE_GITHUB_OAUTH:
@@ -62,7 +62,7 @@ def github_oauth_callback():
 # Save GitHub token securely for authenticated user
 @github_oauth_bp.route("/github/oauth/save-token", methods=["POST"])
 @require_api_key
-@cors_origins()
+@cross_origin()
 def save_oauth_token():
     # Use x-api-key authenticated user
     user = request.user
