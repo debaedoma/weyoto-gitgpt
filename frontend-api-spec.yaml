@@ -121,17 +121,17 @@ weyoto_gitgpt_frontend_api:
         message: "GitHub connected and token saved successfully for your account."
       error_response:
         400:
-          error: "Missing code"
-        400_alt:
-          error: "Token exchange failed"
-          details: { ... }  # Response from GitHub
+          - error: "Missing code"
+          - error: "Token exchange failed"
+            details: { ... }  # GitHub's raw error response
         403:
-          error: "Invalid or expired API key"
+          error: "Unauthorized. Invalid or missing API key."
       notes: >
         The frontend extracts the GitHub OAuth code from the redirected URL (?code=...)
         and sends it to this endpoint along with the user's x-api-key.
-        The backend will securely exchange the code for a token and save it to the user's account.
-        This ensures the token is never visible in frontend JavaScript.
+        The backend securely exchanges the code for a token and saves it to the user’s account.
+        The frontend never sees or stores the token.
+
 
   usage_flow:
     - Step 1: User enters email and requests code (POST /auth/request_code)
