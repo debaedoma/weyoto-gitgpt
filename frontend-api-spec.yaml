@@ -98,43 +98,44 @@ weyoto_gitgpt_frontend_api:
         No headers or body required. This should be triggered from a browser.
         GitHub will redirect to your configured callback URL after approval.
 
-    - name: GitHub OAuth Callback (Token Retrieval Only)
+    - name: GitHub OAuth Callback (Redirect Only)
       method: GET
       path: /auth/github/oauth/callback
       headers: { }
       success_response:
-        access_token: "gho_abc123xyz"
-        message: "Token retrieved. Now send to /auth/github/oauth/save-token with your x-api-key"
+        redirects_to: "{FRONTEND_BASE_URL}/github-callback?code={code}"
       notes: >
-        This endpoint is automatically triggered by GitHub after user authorization.
-        It exchanges the OAuth code for an access token.
-        Does not save the token to any user — frontend must pass this token to /save-token with x-api-key.
+        After successful authorization, GitHub redirects to this backend callback.
+        It does not return a token or JSON. Instead, it redirects to the frontend with the code.
+        The frontend should extract ?code=... from the URL and use the next endpoint to complete the flow.
 
-    - name: Save GitHub OAuth Token (Authenticated)
+    - name: Save GitHub OAuth Token From Code
       method: POST
-      path: /auth/github/oauth/save-token
+      path: /auth/github/oauth/save-token-from-code
       headers:
         Content-Type: application/json
         x-api-key: "your-user-api-key"
       body:
-        access_token: "gho_abc123xyz"
+        code: "abc123"
       success_response:
-        message: "GitHub token saved successfully for your account."
+        message: "GitHub token saved securely."
       error_response:
         400:
-          error: "Missing access token."
+          error: "Missing or invalid code."
         403:
           error: "Invalid or expired API key."
       notes: >
-        Saves the GitHub OAuth token to the currently authenticated user.
-        Must be called with a valid x-api-key after the token is received via /auth/github/oauth/callback.
-        This step completes the GitHub account linking process.
-
+        The frontend receives the GitHub OAuth code from the URL and sends it to this endpoint.
+        The backend will exchange the code for a token and save it securely to the authenticated user.
+        The frontend never sees or stores the token directly.
+  
 
   usage_flow:
     - Step 1: User enters email and requests code (POST /auth/request_code)
     - Step 2: User enters 6-digit code to verify (POST /auth/verify_code)
-    - Step 3: User submits GitHub PAT (POST /auth/set_github_token)
+    - Step 3: User clicks "Connect GitHub" → redirected to GitHub
+    - Step 4: After GitHub approval, frontend receives ?code
+    - Step 5: Frontend sends code to /auth/github/oauth/save-token-from-code
     - Step 4: API Key is revealed (or available via future /user/api_key endpoint)
     - Step 5: User is now fully authenticated and ready to use GitHub queries.
 
