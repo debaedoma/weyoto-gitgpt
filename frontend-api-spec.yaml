@@ -109,7 +109,7 @@ weyoto_gitgpt_frontend_api:
         It does not return a token or JSON. Instead, it redirects to the frontend with the code.
         The frontend should extract ?code=... from the URL and use the next endpoint to complete the flow.
 
-    - name: Save GitHub OAuth Token From Code
+    - name: Exchange GitHub Code & Save Token
       method: POST
       path: /auth/github/oauth/save-token-from-code
       headers:
@@ -121,14 +121,17 @@ weyoto_gitgpt_frontend_api:
         message: "GitHub connected and token saved successfully for your account."
       error_response:
         400:
-          error: "Missing or invalid code."
+          error: "Missing code"
+        400_alt:
+          error: "Token exchange failed"
+          details: { ... }  # Response from GitHub
         403:
-          error: "Invalid or expired API key."
+          error: "Invalid or expired API key"
       notes: >
-        The frontend receives the GitHub OAuth code from the URL and sends it to this endpoint.
-        The backend will exchange the code for a token and save it securely to the authenticated user.
-        The frontend never sees or stores the token directly.
-  
+        The frontend extracts the GitHub OAuth code from the redirected URL (?code=...)
+        and sends it to this endpoint along with the user's x-api-key.
+        The backend will securely exchange the code for a token and save it to the user's account.
+        This ensures the token is never visible in frontend JavaScript.
 
   usage_flow:
     - Step 1: User enters email and requests code (POST /auth/request_code)
@@ -136,8 +139,8 @@ weyoto_gitgpt_frontend_api:
     - Step 3: User clicks "Connect GitHub" → redirected to GitHub
     - Step 4: After GitHub approval, frontend receives ?code
     - Step 5: Frontend sends code to /auth/github/oauth/save-token-from-code
-    - Step 4: API Key is revealed (or available via future /user/api_key endpoint)
-    - Step 5: User is now fully authenticated and ready to use GitHub queries.
+    - Step 6: API Key is revealed (or available via future /user/api_key endpoint)
+    - Step 7: User is now fully authenticated and ready to use GitHub queries.
 
   developer_tips:
     - Always include x-api-key header after verification.
