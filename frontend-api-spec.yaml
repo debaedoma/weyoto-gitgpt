@@ -103,7 +103,7 @@ weyoto_gitgpt_frontend_api:
       path: /auth/github/oauth/callback
       headers: { }
       success_response:
-        redirects_to: "{FRONTEND_BASE_URL}/github-callback?code={code}"
+        redirects_to: "{FRONTEND_BASE_URL}/github-callback?code=abc123"
       notes: >
         After successful authorization, GitHub redirects to this backend callback.
         It does not return a token or JSON. Instead, it redirects to the frontend with the code.
@@ -118,7 +118,7 @@ weyoto_gitgpt_frontend_api:
       body:
         code: "abc123"
       success_response:
-        message: "GitHub token saved securely."
+        message: "GitHub connected and token saved successfully for your account."
       error_response:
         400:
           error: "Missing or invalid code."
