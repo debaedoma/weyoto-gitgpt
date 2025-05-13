@@ -25,14 +25,16 @@ def github_oauth_start():
 # GitHub OAuth callback route — receives code and redirects to frontend
 @github_oauth_bp.route("/github/oauth/callback")
 def github_oauth_callback():
+    # Extract the temporary authorization code from GitHub
     code = request.args.get("code")
     if not code:
-        return jsonify({"error": "Missing code"}), 400
+        return jsonify({ "error": "Missing code" }), 400
 
-    # Redirect to frontend with code as URL param
+    # Redirect to your frontend callback handler, passing the code
     # e.g. https://frontend.weyoto.com/github-callback?code=abc123
     frontend_callback_url = f"{Config.FRONTEND_BASE_URL}/github-callback?code={code}"
     return redirect(frontend_callback_url)
+
 
 # Securely exchange GitHub OAuth code for access token and save it for the authenticated user
 @github_oauth_bp.route("/github/oauth/save-token-from-code", methods=["POST"])
