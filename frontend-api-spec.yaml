@@ -86,6 +86,7 @@ weyoto_gitgpt_frontend_api:
         Requires a valid 6-digit verification code that was emailed to the user, triggered by the /request-code endpoint
         This code must be submitted in the request body and must not be expired.
         After regenerating the API key, the previous key becomes invalid.
+  
     - name: Start GitHub OAuth Flow
       method: GET
       path: /auth/github/oauth/start

@@ -10,3 +10,4 @@ class Config:
     GITHUB_CLIENT_SECRET = os.getenv("GITHUB_CLIENT_SECRET")
     ENABLE_GITHUB_OAUTH = os.getenv("ENABLE_GITHUB_OAUTH", "false").lower() == "true"
     GITHUB_REDIRECT_URI = os.getenv("GITHUB_REDIRECT_URI")
+    FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL") #frontend callback URL for GitHub OAuth

@@ -20,19 +20,29 @@ def github_oauth_start():
     redirect_uri = Config.GITHUB_REDIRECT_URI
     return redirect(f"https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope=repo")
 
-# Handle GitHub's redirect and exchange code for token
+# GitHub OAuth callback route — receives code and redirects to frontend
 @github_oauth_bp.route("/github/oauth/callback")
 def github_oauth_callback():
-    # Check if OAuth is enabled
-    if not Config.ENABLE_GITHUB_OAUTH:
-        return jsonify({"error": "OAuth disabled"}), 403
-
-    # Get the authorization code from GitHub's redirect
     code = request.args.get("code")
     if not code:
-        return jsonify({"error": "Missing code from GitHub"}), 400
+        return jsonify({"error": "Missing code"}), 400
 
-    # Exchange the code for an access token
+    # Redirect to frontend with code as URL param
+    # e.g. https://frontend.weyoto.com/github-callback?code=abc123
+    frontend_callback_url = f"{Config.FRONTEND_BASE_URL}/github-callback?code={code}"
+    return redirect(frontend_callback_url)
+
+# Securely exchange GitHub OAuth code for access token and save it for the authenticated user
+@github_oauth_bp.route("/github/oauth/save-token-from-code", methods=["POST"])
+@cross_origin()
+@require_api_key
+def save_token_from_code():
+    # Parse the GitHub 'code' from frontend's POST request
+    code = request.json.get("code")
+    if not code:
+        return jsonify({ "error": "Missing code" }), 400
+
+    # Exchange the code for a GitHub access token
     token_resp = requests.post(
         "https://github.com/login/oauth/access_token",
         data={
@@ -40,37 +50,19 @@ def github_oauth_callback():
             "client_secret": Config.GITHUB_CLIENT_SECRET,
             "code": code
         },
-        headers={"Accept": "application/json"}
+        headers={ "Accept": "application/json" }
     )
 
-    # Parse GitHub's token response
+    # Parse the access token from GitHub's response
     token_json = token_resp.json()
     access_token = token_json.get("access_token")
 
     if not access_token:
-        return jsonify({"error": "Token exchange failed", "details": token_json}), 400
+        return jsonify({ "error": "Token exchange failed", "details": token_json }), 400
 
-    # ✅ Do not save token here — user is unknown
-    return jsonify({
-        "access_token": access_token,
-        "message": "Token retrieved. Now send it to /auth/github/oauth/save-token with your x-api-key."
-    })
-
-# Save GitHub token securely for authenticated user
-@github_oauth_bp.route("/github/oauth/save-token", methods=["POST"])
-@require_api_key
-def save_oauth_token():
-    # Use x-api-key authenticated user
+    # Save the token to the currently authenticated user (from x-api-key)
     user = request.user
-    data = request.get_json()
-    token = data.get("access_token")
-
-    if not token:
-        return jsonify({ "error": "Missing access token." }), 400
-
-    # Save the token to the user's record
-    user.github_token = token
+    user.github_token = access_token
     db.session.commit()
 
     return jsonify({ "message": "GitHub connected and token saved successfully for your account." })
-
