@@ -4,7 +4,7 @@ weyoto_gitgpt_frontend_api:
 
   base_url: "https://gitgpt-staging.weyoto.com/"
 
-  endpoints (5):
+  endpoints (8):
 
     - name: Request Email Verification Code
       method: POST
@@ -58,7 +58,7 @@ weyoto_gitgpt_frontend_api:
         If the token is invalid or expired, the API will return a 401 error and will not save it.
         Make sure the PAT is fine-grained, not classic, and has access to the repos you intend to use.
 
-    - name: Get API Key (Authenticated)
+    - name: View API Key (Authenticated) and GitHub Status
       method: GET
       path: /auth/view-api-key
       headers:
@@ -67,9 +67,10 @@ weyoto_gitgpt_frontend_api:
       success_response:
         email: "user@example.com"
         api_key: "e4f7c1a2b8309cf458f47cddf8495d6d"
+        github_connected: true
       notes: >
-        Returns the currently authenticated user's API key and email.
-        Requires a valid x-api-key header from a previously verified login.
+        Returns the user's email, API key, and a boolean flag indicating whether the user has already connected their GitHub account.
+        Use this to hide the “Connect GitHub” button if already linked.
 
     - name: Regenerate API Key (Email Code Required)
       method: POST

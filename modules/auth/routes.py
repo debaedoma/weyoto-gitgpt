@@ -75,7 +75,8 @@ def get_api_key():
     user = request.user
     return jsonify({
         "email": user.email,
-        "api_key": user.api_key
+        "api_key": user.api_key,
+        "github_connected": bool(user.github_token) # To check if the user has connected their GitHub account
     })
 
 @auth_bp.route("/regenerate-api-key", methods=["POST"])
