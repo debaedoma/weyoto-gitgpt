@@ -23,9 +23,9 @@ def require_api_key(f):
                 "instructions": "Visit Weyoto GitGPT to get your personal key."
             }), 403
 
-        # ✅ Track request usage
-        user.request_count += 1
-        db.session.commit()
+        # ❌ Disabled automatic counting (Track request usage) for performance — now handled in route logic
+        # user.request_count += 1
+        # db.session.commit()
 
         # Make user available to the route (optional)
         request.user = user
