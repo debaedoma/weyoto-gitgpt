@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from middleware.auth import require_api_key
 from models.user import User
+from datetime import datetime, timedelta
+from utils.billing import get_limit_and_logs, log_request
 from modules.github.services import (
     fetch_file_from_github,
     list_repo_files,
@@ -15,6 +17,34 @@ github_bp = Blueprint("github_bp", __name__)
 @require_api_key
 def query_github():
     user = request.user
+
+    # 🔁 Step 1: Downgrade expired Pro users
+    if user.is_pro and user.plan_expires_at and datetime.utcnow() > user.plan_expires_at:
+        user.is_pro = False
+        user.plan_type = None
+        user.plan_expires_at = None
+        db.session.commit()
+
+    # 🚦 Step 2: If not Pro, check usage
+    if not user.is_pro:
+        logs, max_allowed = get_limit_and_logs(user.id, limit=10)
+
+        if len(logs) >= max_allowed:
+            # 📅 Find when they can try again — 12h after their oldest request
+            oldest = logs[0].created_at
+            try_again = (oldest + timedelta(hours=12)).isoformat()
+
+            return jsonify({
+                "error": "You’ve reached your current usage limit.",
+                "upgrade_cta": "Unlock unlimited GitGPT access for just $1/month or $10/year.",
+                "upgrade_url": "https://yourdomain.com/upgrade",
+                "try_again_at": try_again
+            }), 403
+
+    # 📝 Step 3: Log the request
+    log_request(user.id, endpoint="/github/query")
+
+    # 🧠 Continue with GitHub logic...
     data = request.get_json()
 
     token = user.github_token or user.github_pat
