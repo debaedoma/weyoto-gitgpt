@@ -133,6 +133,30 @@ weyoto_gitgpt_frontend_api:
         The backend securely exchanges the code for a token and saves it to the user’s account.
         The frontend never sees or stores the token.
 
+    - name: Activate Pro Plan (After Payment)
+      method: POST
+      path: /billing/activate
+      headers:
+        Content-Type: application/json
+        x-api-key: "your-user-api-key"
+      body:
+        plan: "monthly"  # or "annual"
+      success_response:
+        status: "activated"
+        plan: "monthly"
+        expires_at: "2025-06-20T14:32:10Z"
+      error_response:
+        403:
+          error: "Invalid API key"
+        400:
+          error: "Invalid plan type. Must be 'monthly' or 'annual'."
+      notes: >
+        Called by the frontend after a successful Paystack payment.
+        Accepts either 'monthly' or 'annual' plan.
+        Marks the user as Pro and sets their plan duration.
+        Plan expires after 30 or 365 days depending on selection.
+        Only accessible with a valid x-api-key.
+
 
   usage_flow:
     - Step 1: User enters email and requests code (POST /auth/request_code)
