@@ -4,6 +4,7 @@ from config import Config
 from extensions import db, migrate
 from modules.github.routes import github_bp
 from modules.auth.routes import auth_bp
+from modules.billing.routes import billing_bp
 import os
 
 def create_app():
@@ -21,6 +22,7 @@ def create_app():
     # Register Blueprints
     app.register_blueprint(github_bp, url_prefix="/github")
     app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(billing_bp, url_prefix="/billing")
 
     if Config.ENABLE_GITHUB_OAUTH:
         from modules.auth.github_oauth_routes import github_oauth_bp
