@@ -17,4 +17,3 @@ def generate_limit_response(logs):
         "retry_in": f"{hours_left}h {minutes_left}m",
         "try_again_at": formatted_time
     }
-ss
