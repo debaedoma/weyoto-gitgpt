@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
-  title: GitHub Query Tool
+  title: Weyoto GitGPT GitHub Query Tool
   version: 1.0.0
 servers:
-  - url: https://weyoto-gitgpt-dev.onrender.com
+  - url: https://gitgpt-api.weyoto.com
 
 paths:
   /github/query:
