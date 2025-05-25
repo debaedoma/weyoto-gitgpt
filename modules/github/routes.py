@@ -31,7 +31,9 @@ def query_github():
         logs, max_allowed = get_limit_and_logs(user.id)
 
         if len(logs) >= max_allowed:
-            return jsonify(generate_limit_response(logs)), 403
+            oldest = logs[0].created_at
+            try_again_time = oldest + timedelta(hours=Config.FREE_PLAN_WINDOW_HOURS)
+            return jsonify(generate_limit_response(try_again_time)), 403
 
     # 📝 Step 3: Log the request
     log_request(user.id, endpoint="/github/query")
