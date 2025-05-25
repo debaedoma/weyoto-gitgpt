@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from middleware.auth import require_api_key
 from models.user import User
+from config import Config
 from datetime import datetime, timedelta
 from utils.billing import get_limit_and_logs, log_request
 from modules.github.services import (
@@ -27,12 +28,12 @@ def query_github():
 
     # 🚦 Step 2: If not Pro, check usage
     if not user.is_pro:
-        logs, max_allowed = get_limit_and_logs(user.id, limit=10)
+        logs, max_allowed = get_limit_and_logs(user.id)
 
         if len(logs) >= max_allowed:
-            # 📅 Find when they can try again — 12h after their oldest request
+            # 📅 Find when they can try again — 6h after their oldest request
             oldest = logs[0].created_at
-            try_again = (oldest + timedelta(hours=12)).isoformat()
+            try_again = (oldest + timedelta(hours=Config.FREE_PLAN_WINDOW_HOURS)).isoformat()
 
             return jsonify({
                 "error": "You’ve reached your current usage limit.",

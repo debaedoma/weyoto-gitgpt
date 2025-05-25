@@ -11,3 +11,5 @@ class Config:
     ENABLE_GITHUB_OAUTH = os.getenv("ENABLE_GITHUB_OAUTH", "false").lower() == "true"
     GITHUB_REDIRECT_URI = os.getenv("GITHUB_REDIRECT_URI")
     FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL") #frontend callback URL for GitHub OAuth
+    FREE_PLAN_LIMIT = int(os.getenv("FREE_PLAN_LIMIT", 20))
+    FREE_PLAN_WINDOW_HOURS = int(os.getenv("FREE_PLAN_WINDOW_HOURS", 6))
