@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify
 from extensions import db
 from middleware.auth import require_api_key
 from models.user import User
-from config import Config
 from datetime import datetime, timedelta
 from utils.billing import get_limit_and_logs, log_request
+from utils.limits import generate_limit_response
 from modules.github.services import (
     fetch_file_from_github,
     list_repo_files,
@@ -31,16 +31,7 @@ def query_github():
         logs, max_allowed = get_limit_and_logs(user.id)
 
         if len(logs) >= max_allowed:
-            # 📅 Find when they can try again — 6h after their oldest request
-            oldest = logs[0].created_at
-            try_again = (oldest + timedelta(hours=Config.FREE_PLAN_WINDOW_HOURS)).isoformat()
-
-            return jsonify({
-                "error": "You’ve reached your current usage limit.",
-                "upgrade_cta": "Unlock unlimited GitGPT access for just $1/month or $10/year.",
-                "upgrade_url": "https://yourdomain.com/upgrade",
-                "try_again_at": try_again
-            }), 403
+            return jsonify(generate_limit_response(logs)), 403
 
     # 📝 Step 3: Log the request
     log_request(user.id, endpoint="/github/query")
