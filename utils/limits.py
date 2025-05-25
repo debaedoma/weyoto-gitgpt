@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from config import Config
 
-def generate_limit_response(logs):
+def generate_limit_response(try_again_time):
     remaining = try_again_time - datetime.utcnow()
     hours_left = remaining.seconds // 3600
     minutes_left = (remaining.seconds % 3600) // 60
