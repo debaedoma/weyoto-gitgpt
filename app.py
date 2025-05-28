@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,jsonify
 from flask_cors import CORS
 from config import Config
 from extensions import db, migrate
@@ -10,6 +10,15 @@ import os
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # ✅ Add friendly homepage/status route
+    @app.route("/")
+    def status():
+        return jsonify({
+            "status": "🟢 GitGPT backend is running",
+            "version": "MVP",
+            "routes": ["/github/query", "/auth", "/billing"]
+        })
 
     # ✅ Use environment variable to dynamically control CORS origins
     allowed_origins = os.getenv("CORS_ORIGINS", "").split(",")
