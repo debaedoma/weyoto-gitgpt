@@ -11,11 +11,11 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # ✅ Add friendly homepage/status route
+    # ✅ Friendly homepage/status route
     @app.route("/")
     def status():
         return jsonify({
-            "status": "🟢 GitGPT backend is running",
+            "status": "Hello, how are you doing today? Do you like our tool? We'd love to hear from you: hello@weyoto.com",
             "version": "MVP",
             "routes": ["/github/query", "/auth", "/billing"]
         })
