@@ -26,11 +26,19 @@ Weyoto GitGPT is designed to be AI-aware and AI-co-pilot compatible. Any GPT (in
    - The codebase that will require another thing somewhere else to be changed or updated as well
 
 5. **Ensure GPT schema consistency**:
-   - Each data source (e.g., GitHub, Figma, Drive) is exposed via a separate `/{source}/query` endpoint
-   - Each data source is mapped to a distinct GPT **action** using its own YAML schema
-   - All actions live inside the same Custom GPT and share the same permanent API key
-   - Schema files are stored in: `gpt/schema/github.yaml`, `gpt/schema/figma.yaml`, etc.
-   - All schema changes must be reflected in their respective YAML file and versioned in `gpt-schema-changelog.md`
+   - All data sources (e.g., GitHub, Server, Figma, Drive) are exposed as distinct **paths** within a single GPT action schema.  
+   - Each tool is registered under a separate `/{source}/query` path inside a unified OpenAPI YAML file (e.g., `gpt/schema/combined.yaml`). 
+   - The Custom GPT defines only **one action**, with multiple sub-actions handled via `operationId` and path-based routing.
+   
+   This structure solves GPT Builder's limitation of “duplicate domain” errors, and enables multi-source querying from a single GPT endpoint.
+
+   All tools share:
+      - A single base URL (e.g., `https://gitgpt-api.weyoto.com`)
+      - One API key per user
+      - Modular backend endpoints like:
+        - `/github/query`
+        - `/server/query`
+        - `/figma/query` (future)
 
 ## ✅ Supported GPT Actions
 
