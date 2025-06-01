@@ -76,7 +76,7 @@ def get_api_key():
     return jsonify({
         "email": user.email,
         "api_key": user.api_key,
-        "github_connected": bool(user.github_token) # To check if the user has connected their GitHub account
+        "github_connected": bool(user.github_token), # To check if the user has connected their GitHub account
         "is_pro": user.is_pro
     })
 

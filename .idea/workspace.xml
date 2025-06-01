@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3d55042e-29e6-4718-b807-5d61407e9cee" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/auth/routes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
