@@ -70,3 +70,12 @@ def save_token_from_code():
     db.session.commit()
 
     return jsonify({ "message": "GitHub connected and token saved successfully for your account." })
+
+@github_oauth_bp.route("/disconnect-github", methods=["POST"])
+@require_api_key
+def disconnect_github():
+    user = request.user
+    user.github_pat = None
+    user.github_token = None
+    db.session.commit()
+    return jsonify({ "message": "GitHub connection removed successfully." })

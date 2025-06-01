@@ -68,6 +68,7 @@ weyoto_gitgpt_frontend_api:
         email: "user@example.com"
         api_key: "e4f7c1a2b8309cf458f47cddf8495d6d"
         github_connected: true
+        is_pro: true
       notes: >
         Returns the user's email, API key, and a boolean flag indicating whether the user has already connected their GitHub account.
         Use this to hide the “Connect GitHub” button if already linked.
@@ -156,6 +157,18 @@ weyoto_gitgpt_frontend_api:
         Marks the user as Pro and sets their plan duration.
         Plan expires after 30 or 365 days depending on selection.
         Only accessible with a valid x-api-key.
+
+    - name: Disconnect GitHub
+      method: POST
+      path: /auth/disconnect-github
+      headers:
+        Content-Type: application/json
+        x-api-key: "your-user-api-key"
+      success_response:
+        message: "GitHub connection removed successfully."
+      notes: >
+        Clears both OAuth and manual GitHub tokens from the user's profile.
+        Use this to let users disconnect their GitHub from the GPT integration or UI panel.
 
 
   usage_flow:
