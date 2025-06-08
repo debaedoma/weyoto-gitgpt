@@ -13,3 +13,4 @@ class Config:
     FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL") #frontend callback URL for GitHub OAuth
     FREE_PLAN_LIMIT = int(os.getenv("FREE_PLAN_LIMIT", 20))
     FREE_PLAN_WINDOW_HOURS = int(os.getenv("FREE_PLAN_WINDOW_HOURS", 6))
+    DEBUG = os.getenv("DEBUG", "false").lower() == "true"
