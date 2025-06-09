@@ -6,6 +6,7 @@ from config import Config
 from datetime import datetime, timedelta
 from utils.billing import get_limit_and_logs, log_request
 from utils.limits import generate_limit_response
+from utils.encryption import encrypt_token, decrypt_token
 from modules.github.services import (
     fetch_file_from_github,
     list_repo_files,
@@ -42,7 +43,11 @@ def query_github():
     # 🧠 Continue with GitHub logic...
     data = request.get_json()
 
-    token = user.github_token or user.github_pat
+    raw_token = user.github_token or user.github_pat
+    if raw_token:
+        token = decrypt_token(raw_token)
+    else:
+        return jsonify({"error": "GitHub not connected. Please visit https://gitgpt.weyoto.com/dashboard to connect your GitHub codebase."}), 400
 
     action = data.get("action")
     repo = data.get("repo")
@@ -134,7 +139,7 @@ def set_pat():
     except Exception:
         return jsonify({ "error": "Invalid or expired GitHub token. Ensure you're inputting a valid fine-grained PAT" }), 401
 
-    user.github_pat = token
+    user.github_pat = encrypt_token(token)
     db.session.commit()
 
     return jsonify({ "message": "GitHub token saved successfully." })

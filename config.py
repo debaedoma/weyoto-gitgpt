@@ -14,3 +14,4 @@ class Config:
     FREE_PLAN_LIMIT = int(os.getenv("FREE_PLAN_LIMIT", 20))
     FREE_PLAN_WINDOW_HOURS = int(os.getenv("FREE_PLAN_WINDOW_HOURS", 6))
     DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+    FERNET_SECRET_KEY = os.getenv("FERNET_SECRET_KEY")

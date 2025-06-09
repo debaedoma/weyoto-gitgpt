@@ -5,6 +5,7 @@ from config import Config
 import requests
 from middleware.auth import require_api_key
 import os
+from utils.encryption import encrypt_token
 from flask_cors import cross_origin
 
 # Create a separate blueprint for GitHub OAuth routes
@@ -66,7 +67,7 @@ def save_token_from_code():
 
     # Save the token to the currently authenticated user (from x-api-key)
     user = request.user
-    user.github_token = access_token
+    user.github_token = encrypt_token(access_token)
     db.session.commit()
 
     return jsonify({ "message": "GitHub connected and token saved successfully for your account." })
